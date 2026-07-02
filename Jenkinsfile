@@ -1,5 +1,3 @@
-cd ~/tp-ci-cd/tp-cicd-tasklist-frontend
-cat > Jenkinsfile << 'EOF'
 pipeline {
     agent any
 
@@ -106,6 +104,3 @@ pipeline {
         }
     }
 }
-EOF
-
-grep -n "qualitygate.wait\|waitForQualityGate\|Quality Gate" Jenkinsfile
