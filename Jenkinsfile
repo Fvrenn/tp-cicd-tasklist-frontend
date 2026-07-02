@@ -1,3 +1,5 @@
+cd ~/tp-ci-cd/tp-cicd-tasklist-frontend
+cat > Jenkinsfile << 'EOF'
 pipeline {
     agent any
 
@@ -33,17 +35,10 @@ pipeline {
                             npx sonar-scanner \
                                 -Dsonar.projectKey=timotheh-tasklist-frontend \
                                 -Dsonar.projectName="timotheh - TaskList Frontend" \
-                                -Dsonar.token=$SONAR_TOKEN
+                                -Dsonar.token=$SONAR_TOKEN \
+                                -Dsonar.qualitygate.wait=true
                         '''
                     }
-                }
-            }
-        }
-
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
                 }
             }
         }
@@ -111,3 +106,6 @@ pipeline {
         }
     }
 }
+EOF
+
+grep -n "qualitygate.wait\|waitForQualityGate\|Quality Gate" Jenkinsfile
